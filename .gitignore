@@ -1,3 +1,4 @@
 vars_secrets.tfvars
 terraform.tfstate*
 .terraform
+*.pyc

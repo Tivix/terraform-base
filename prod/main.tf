@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "github.com/nemd/terraform-modules/vpc"
+  source = "github.com/Tivix/terraform-modules/vpc"
   cidr   = "10.10.0.0/16"
 
   name = "${format("%s@%s", var.project_name, var.env)}"
@@ -40,7 +40,7 @@ data "aws_ami" "ubuntu" {
 }
 
 module "security_group" {
-  source = "github.com/nemd/terraform-modules/sg"
+  source = "github.com/Tivix/terraform-modules/sg"
 
   name        = "sg_http_ssh"
   description = "sg with open http and ssh"
@@ -51,17 +51,8 @@ module "security_group" {
   egress_rules        = ["all-all"]
 }
 
-# data "aws_subnet_ids" "all" {
-#   vpc_id = "${module.vpc.vpc_id}"
-# }
-
-# data "aws_subnet" "all" {
-#   count = "${length(data.aws_subnet_ids.all.ids)}"
-#   id    = "${data.aws_subnet_ids.all.ids[count.index]}"
-# }
-
 module "ec2" {
-  source = "github.com/nemd/terraform-modules/ec2"
+  source = "github.com/Tivix/terraform-modules/ec2"
 
   env = "${var.env}"
 
@@ -73,3 +64,20 @@ module "ec2" {
   vpc_security_group_ids      = "${module.security_group.this_security_group_id}"
   associate_public_ip_address = true
 }
+
+resource "aws_eip" "this" {
+  instance = "${element(module.ec2.id, count.index)}"
+  vpc      = true
+}
+
+# resource "null_resource" "ansible_inventory" {
+#   triggers {
+#     eip_id = "${aws_eip.this.id}"
+#   }
+
+
+#   provisioner "local-exec" {
+#     command = "echo \"[prometheus_servers]\n${aws_eip.this.public_ip}\" > ../ansible/prod"
+#   }
+# }
+

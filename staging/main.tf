@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "../../terraform-modules/vpc"
+  source = "github.com/Tivix/terraform-modules/vpc"
   cidr   = "10.10.0.0/16"
 
   name = "${format("%s@%s", var.project_name, var.env)}"
@@ -40,7 +40,7 @@ data "aws_ami" "ubuntu" {
 }
 
 module "security_group" {
-  source = "../../terraform-modules/sg"
+  source = "github.com/Tivix/terraform-modules/sg"
 
   name        = "sg_http_ssh"
   description = "sg with open http and ssh"
@@ -52,7 +52,7 @@ module "security_group" {
 }
 
 module "ec2" {
-  source = "../../terraform-modules/ec2"
+  source = "github.com/Tivix/terraform-modules/ec2"
 
   env = "${var.env}"
 
@@ -64,3 +64,20 @@ module "ec2" {
   vpc_security_group_ids      = "${module.security_group.this_security_group_id}"
   associate_public_ip_address = true
 }
+
+resource "aws_eip" "this" {
+  instance = "${element(module.ec2.id, count.index)}"
+  vpc      = true
+}
+
+# resource "null_resource" "ansible_inventory" {
+#   triggers {
+#     eip_id = "${aws_eip.this.id}"
+#   }
+
+
+#   provisioner "local-exec" {
+#     command = "echo \"[prometheus_servers]\n${aws_eip.this.public_ip}\" > ../ansible/staging"
+#   }
+# }
+

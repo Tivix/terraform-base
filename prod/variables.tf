@@ -14,7 +14,7 @@ variable "instance_type" {
 
 variable "project_name" {
   description = "Project name"
-  default     = "terratest"
+  default     = "terraform-base"
 }
 
 variable "owner" {
