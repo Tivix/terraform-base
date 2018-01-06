@@ -1,7 +1,3 @@
-variable "aws_access_key" {}
-
-variable "aws_secret_key" {}
-
 variable "masterkey" {
   description = "name of the master key for region"
   default     = "masterkey-tivix-ireland"

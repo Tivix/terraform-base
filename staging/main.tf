@@ -1,8 +1,18 @@
 # define aws api keys
 provider "aws" {
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-  region     = "${var.aws_region}"
+  region  = "${var.aws_region}"
+  profile = "tivix"
+}
+
+# terraform remote state 
+terraform {
+  backend "s3" {
+    encrypt = false
+    bucket  = "terraform-shared-states"
+    region  = "eu-west-1"
+    key     = "terraform-base/staging"
+    profile = "tivix"
+  }
 }
 
 module "vpc" {

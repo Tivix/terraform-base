@@ -15,13 +15,20 @@ fabric - `brew install fabric`
 usage
 -----
 
-put your aws api keys into file named `vars_secrets.tfvars` inside root directory.
+put your aws api keys into credentials file: `$HOME/.aws/credentials` accordingly to schema below:
 
-file's format:
 ```
-aws_access_key = "my-aws_access_key-value"
-aws_secret_key = "my-aws_secret_key-value"
+[customer_name_1]
+aws_access_key_id = <aws_api_key>
+aws_secret_access_key = <aws_secret_key>
+
+[customer_name_2]
+aws_access_key_id = <aws_api_key>
+aws_secret_access_key = <aws_secret_key>
 ```
+
+and put desired profile name (one between [ ]) into `master.tf` file inside terraform. In case of existing project please set profile name accordingly to existing name (read from `master.tf`).
+
 
 then use fabric:
 

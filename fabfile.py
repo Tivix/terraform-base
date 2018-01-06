@@ -10,7 +10,7 @@ def staging():
 def infra():
     # this one will build whole aws infra
     print(green("\nTerraform bootstraping - setting whole infra on AWS ...\n"))
-    local('cd %s && terraform init && terraform apply -var-file="../vars_secrets.tfvars"' % env.ENV)
+    local('cd %s && terraform init && terraform apply' % env.ENV)
 
 def up():
     infra()
@@ -19,7 +19,7 @@ def destroy():
     # destroys whole infra
     print(red("\n\nTerraform - destroying whole infra!!!\n"))
     if confirm(prompt='This will destroy whole env - are you sure?', resp=False):
-        local('cd %s && terraform init && terraform destroy -var-file="../vars_secrets.tfvars"' % env.ENV)
+        local('cd %s && terraform init && terraform destroy' % env.ENV)
 
 def compare():
     # compares files for prod and staging - shouldn't be significant differences except variables
