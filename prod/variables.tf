@@ -3,6 +3,11 @@ variable "masterkey" {
   default     = "masterkey-tivix-ireland"
 }
 
+variable "profile" {
+  description = "name of profile from $HOME/.aws/credentials"
+  default     = "tivix"
+}
+
 variable "instance_type" {
   description = "instance type like t2.micro, t2.medium etc"
   default     = "t2.micro"

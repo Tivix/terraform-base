@@ -1,16 +1,16 @@
 # define aws api keys
 provider "aws" {
   region  = "${var.aws_region}"
-  profile = "tivix"
+  profile = "${var.profile}"
 }
 
-# terraform remote state 
+# terraform remote state. It needs to be hardcoded due to current implementation
 terraform {
   backend "s3" {
     encrypt = false
     bucket  = "terraform-shared-states"
     region  = "eu-west-1"
-    key     = "terraform-base/staging"
+    key     = "terraform-base/staging.tfstate"
     profile = "tivix"
   }
 }
@@ -87,7 +87,7 @@ resource "aws_eip" "this" {
 
 
 #   provisioner "local-exec" {
-#     command = "echo \"[prometheus_servers]\n${aws_eip.this.public_ip}\" > ../ansible/staging"
+#     command = "echo \"[webserver]\n${aws_eip.this.public_ip}\" > ../ansible/staging"
 #   }
 # }
 
