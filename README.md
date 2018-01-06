@@ -8,8 +8,8 @@ all state files and secret files are gitignored.
 dependencies
 ------------
 
-terraform - `brew install terraform`
-fabric - `brew install fabric`
+- terraform - `brew install terraform`
+- fabric - `brew install fabric`
 
 
 usage
