@@ -8,6 +8,8 @@ resource "aws_db_instance" "default" {
   name                    = "${var.project_name}"
   username                = "${var.project_name}"
   password                = "${var.project_name}!rules1"
+  skip_final_snapshot = "${var.skip_final_snapshot}"
+  final_snapshot_identifier = "${var.project_name}-destroy-snapshot"
   db_subnet_group_name    = "${module.vpc.database_subnet_group}"
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
   backup_retention_period = "7"
