@@ -57,6 +57,11 @@ variable "use_rds" {
   default     = "false"
 }
 
+variable "skip_final_snapshot" {
+  description = "Create final rds snapshot before destroy?"
+  default     = "true"
+}
+
 variable "aws_region" {
   default = "eu-west-1"
 }
