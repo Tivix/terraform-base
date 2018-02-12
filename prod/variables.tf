@@ -1,6 +1,6 @@
 variable "masterkey" {
   description = "name of the master key for region"
-  default     = "masterkey-tivix-ireland"
+  default     = "masterkey-tivix"
 }
 
 variable "profile" {
@@ -10,7 +10,12 @@ variable "profile" {
 
 variable "instance_type" {
   description = "instance type like t2.micro, t2.medium etc"
-  default     = "t2.micro"
+  default     = "t2.medium"
+}
+
+variable "instances_count" {
+  description = "how many ec2 instances to create"
+  default     = 1
 }
 
 variable "project_name" {
@@ -23,8 +28,33 @@ variable "owner" {
   default     = "Michal"
 }
 
+variable "project_root_domain" {
+  description = "Root domain name for the project"
+  default     = ""
+}
+
+variable "project_domain" {
+  description = "Actual domain or subomain name for the project"
+  default     = ""
+}
+
 variable "env" {
   default = "prod"
+}
+
+variable "use_elb" {
+  description = "Should elb be put in front of ec2?"
+  default     = "false"
+}
+
+variable "use_r53" {
+  description = "Should route53 set record for domain?"
+  default     = "false"
+}
+
+variable "use_rds" {
+  description = "Create rds?"
+  default     = "false"
 }
 
 variable "aws_region" {

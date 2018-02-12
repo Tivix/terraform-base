@@ -1,16 +1,19 @@
 # VPC
-output "vpc_id" {
-  description = "The ID of the VPC"
-  value       = "${module.vpc.vpc_id}"
+output "project" {
+  description = "Basic info regarding project"
+  value       = "${format("%s@%s", var.project_name, var.env)}"
 }
 
-# Subnets
-output "public_subnets" {
-  description = "List of IDs of public subnets"
-  value       = ["${module.vpc.public_subnets}"]
+# IPs
+output "private_ip" {
+  value = "${module.ec2.private_ip}"
 }
 
-output "database_subnets" {
-  description = "List of IDs of database subnets"
-  value       = ["${module.vpc.database_subnets}"]
+output "public_ip" {
+  value = "${aws_eip.this.public_ip}"
+}
+
+#RDS
+output "db_endpoint" {
+  value = "${aws_db_instance.default.endpoint}"
 }
