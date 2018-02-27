@@ -65,3 +65,12 @@ variable "skip_final_snapshot" {
 variable "aws_region" {
   default = "eu-west-1"
 }
+
+variable aws_azs {
+  description = "map of availability zones"
+
+  default = {
+    us-east-1 = "us-east-1a,us-east-1c,us-east-1d"
+    eu-west-1 = "eu-west-1a,eu-west-1b,eu-west-1c"
+  }
+}

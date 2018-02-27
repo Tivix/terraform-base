@@ -27,6 +27,9 @@ module "ec2" {
   subnet_id                   = "${element(module.vpc.public_subnets, 0)}"
   vpc_security_group_ids      = ["${aws_security_group.ssh.id}", "${aws_security_group.zabbix.id}", "${aws_security_group.main.id}"]
   associate_public_ip_address = true
+  ebs_optimized               = true
+
+  # iam_instance_profile        = "${aws_iam_instance_profile.volumes_profile.id}"
 }
 
 resource "aws_eip" "this" {

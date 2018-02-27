@@ -1,14 +1,3 @@
-# module "security_group" {
-#   source = "github.com/Tivix/terraform-modules/sg"
-
-#   name        = "sg_http_ssh"
-#   description = "sg with open ports for http, ssh, docker-cloud"
-#   vpc_id      = "${module.vpc.vpc_id}"
-
-#   ingress_cidr_blocks = ["0.0.0.0/0"]
-#   ingress_rules       = ["http-80-tcp", "ssh-tcp", "docker-cloud-api", "docker-cloud"]
-#   egress_rules        = ["all-all"]
-# }
 resource "aws_security_group" "elb" {
   count = "${var.use_elb == "true" ? 1 : 0}"
 

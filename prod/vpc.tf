@@ -5,7 +5,7 @@ module "vpc" {
   name = "${format("%s-at-%s", var.project_name, var.env)}"
   env  = "${var.env}"
 
-  azs            = ["eu-west-1a", "eu-west-1b"]
+  azs            = ["${split(",", lookup(var.aws_azs, var.aws_region))}"]
   public_subnets = ["10.10.10.0/24"]
 
   create_database_subnet_group = true
