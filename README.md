@@ -26,7 +26,9 @@ aws_access_key_id = <aws_api_key>
 aws_secret_access_key = <aws_secret_key>
 ```
 
-and put desired profile name (one between [ ]) into `master.tf` file inside terraform. In case of existing project please set profile name accordingly to existing name (read from `master.tf`).
+and put desired profile name (one between [ ]) into `main.tf` file inside terraform /backend section/. In case of existing project please set profile name accordingly to existing name (read from `main.tf`).
+
+To set whole project, go to `variables.tf` and fill out all needed fields - take a closer look on vars like `use_elb`, `use_rds` etc - these determines which AWS services needs to be set.
 
 
 then use fabric:
